@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation</title>
+    <link rel="stylesheet" href="fonts/stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+
+    <div class="container row">
+        <div class="main">
+            <div class="right">
+                <h2>Register here for rich out to me !</h2>
+                <img src="Images/walk.png" alt="">
+            </div>
+            <form method="post" onsubmit="validation(event)">
+                <div>
+                    <h4>Name :</h4>
+                    <div class="field">
+                        <input type="text" id="name">
+                        <div id="name_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Email : </h4>
+                    <div class="field">
+                        <input type="text" id="email">
+                        <div id="email_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Password :</h4>
+                    <div class="field">
+                        <input type="text" id="password">
+                        <div id="pass_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Phone no. :</h4>
+                    <div class="field">
+                        <input type="text" id="phoneNo" onkeypress="return validPhone(event)">
+                        <div id="phone_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Gender :</h4>
+                    <div class="field">
+                        <input type="radio" name="gender" id="male">Male
+                        <input type="radio" name="gender" id="female">Female
+                        <div id="gender_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Hobby :</h4>
+                    <div class="field">
+                        <input type="checkbox" name="hobby" id="coding">Coding
+                        <input type="checkbox" name="hobby" id="music">Music
+                        <input type="checkbox" name="hobby" id="drive">Driving
+                        <div id="hobby_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Image : </h4>
+                    <div class="field">
+                        <input type="file" id="image">
+                        <div id="file_err"></div>
+                    </div>
+                </div>
+                <div>
+                    <div></div>
+                    <div>
+                        <input type="submit" class="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        function validation(e) {
+            e.preventDefault();
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phoneNo = document.getElementById("phoneNo").value;
+            var male = document.getElementById("male").checked;
+            var female = document.getElementById("female").checked;
+            var coding = document.getElementById("coding").checked;
+            var music = document.getElementById("music").checked;
+            var drive = document.getElementById("drive").checked;
+            var password = document.getElementById("password").value;
+            var image = document.getElementById("image");
+            var imagePath = image.value;
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+
+
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+
+            if (name == "") {
+                document.getElementById("name_err").innerHTML = "Please enter name "
+            }
+            else if (name.length <= 2) {
+                document.getElementById("name_err").innerHTML = "Minimum 3 charecters required"
+            }
+            else if (email == "") {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = "Please enter email"
+            }
+            else if (!email.match(mailformat)) {
+                document.getElementById("email_err").innerHTML = "Please enter valid email"
+            }
+            else if (password == "") {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("hobby_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = "Please enter password"
+            }
+            else if (!password.match(passw)) {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("hobby_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = "Please enter valid password"
+            }
+            else if (phoneNo == "") {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = "Please enter phone no."
+            }
+            else if (phoneNo.length != 10) {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = "Please enter valid phone no."
+            }
+            else if (male == false && female == false) {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = "You must select male or female"
+            }
+            else if (coding == false && music == false && drive == false) {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("hobby_err").innerHTML = "You must select any one"
+            }
+            else if (!allowedExtensions.test(imagePath)) {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("hobby_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("file_err").innerHTML = "Please upload file having extensions .jpeg/.jpg/.png/.gif only."
+            }
+            else {
+                document.getElementById("name_err").innerHTML = ""
+                document.getElementById("email_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("phone_err").innerHTML = ""
+                document.getElementById("gender_err").innerHTML = ""
+                document.getElementById("hobby_err").innerHTML = ""
+                document.getElementById("pass_err").innerHTML = ""
+                document.getElementById("file_err").innerHTML = ""
+            }
+
+        }
+
+        function validPhone(e) {
+            const phoneformat = /^[0-9]/;
+            return phoneformat.test(e.key)
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>
